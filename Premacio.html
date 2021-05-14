@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+<style>
+  input[type=text]{
+  width: 20%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  border: none;
+  background:darksalmon;
+  border-radius: 10px;
+  display: block;
+}
+
+.cont{
+  padding: 16px;
+  text-align: left;
+}
+
+.dropbtn {
+  background-color: #3498DB;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+.dropdown a:hover {
+    background-color: #ddd;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+.button {
+  background-color:deepskyblue;
+  color: black;
+  padding: 14px 15px;
+  margin: 30px 0;
+  border: none;
+  cursor: pointer;
+  width: 20%0;
+  opacity: 0.9;
+  border-radius: 10px;
+  display: block;
+  
+
+}
+</style>
+</head>
+<body>
+
+    <div class = "cont">
+    <input type="text" placeholder="Item Name" id="itemName" name="itemName">
+    <div class="dropdown">
+        <button>Select Item: </button>
+      
+            <select id = "itemType">
+                <option value = "Weapon">Weapon</option>
+                <option value = "Shield">Shield</option>
+                <option value = "Armor">Armor</option>
+            </select>
+       
+        <button>Add Effect: </button>
+        <select id = "effectSelect">
+            <option value = "Attack">Attack</option>
+            <option value = "Defense">Defense</option>
+            <option value = "HP">HP</option>
+        </select>
+        <input type="text" placeholder="Amount: " id="effectAmount" name="eNAme" width="20%">
+        <button type="button" class = "button"onclick="addEffect();">Add Effect</button>
+        <input  disabled value = "Effect #1" id ="ef1">
+        <input  disabled value = "Amount #1" id ="am1">
+        <br>
+        <input  disabled value = "Effect #2" id = "ef2">
+         
+         <input  disabled value = "Amount #2" id ="am2">
+    </br>
+      </div>
+      
+      <button type="button" class = "button"onclick="addItem();">Add Item</button>
+
+</div>
+<table cellpadding="1" cellspacing="1" border="0" bgcolor="#dfdfdf" width="20%" align="center">
+    <thead>
+        <tr>
+            <th>Item Name</th>
+            <th width="50%">Type</th>
+            
+        </tr>
+    </thead>
+        <tbody id="tableData"></tbody>
+    </table>
+    <div style="text-align: center;">
+    <input  disabled value = "Item Name" id ="e1">
+    <br>
+    <input  disabled value = "Item Type" id ="e2">
+  </br>
+    <input  disabled value = "Effect Name#1" id ="e3">
+    <input  disabled value = "Amount" id ="e4">
+    <br>
+    <input  disabled value = "Effect Name#2" id ="e3">
+    <input  disabled value = "Amount" id ="e4">
+      </br>
+      </div>
+    </body>
+        <script>
+            var equippedClass = {
+
+
+            }
+           var count = 1;
+           var itemClass = [{
+               
+                itemName: 'n',
+                itemType: 'n',
+                itemEffect1: 'n',
+                itemEffect1Amount: 0,
+                itemEffect2: 'n',
+                itemEffect2Amount: 0,
+            }
+            ]
+        
+                function addItem(){
+                   /// var getItemName = document.getElementById("itemName").value;
+                  ///  var getType = document.getElementById("itemType").value;
+                        if(count == 3){
+                           var type =  document.getElementById("itemType");
+                           var name =   document.getElementById("itemName");
+                           itemClass.itemType = type.value;
+                           itemClass.itemName = name.value;
+                            alert("Successfully Added!")
+                           
+                          
+                            count = 1;
+                            addTable();
+                            for (x in itemClass) {
+                             var txt = itemClass[x] + " ";
+                             console.log(txt);
+                                };
+                        }else
+                        alert("You can't add this item! Check your effect list! or Remove Existing Data and Add again!");
+                    
+                }
+                function addEffect(){
+                  
+                    var getEffectName = document.getElementById("effectSelect");
+                    var getEffectAmount = document.getElementById("effectAmount").value;
+                    console.log(getEffectName);
+                        if(count == 1){
+                            itemClass.itemEffect1 = getEffectName.value;
+                         //   itemClass.itemEffect1Amount = getEffectAmount.value;
+                            var intEffect = parseInt(getEffectAmount);
+                            itemClass.itemEffect1Amount = intEffect;
+                            alert("Effect " + count + " added!");
+                            count++;
+                            document.getElementById("ef1").value =  itemClass.itemEffect1;
+                            document.getElementById("am1").value =  itemClass.itemEffect1Amount;
+                        }else if(count == 2){
+                            itemClass.itemEffect2 = getEffectName.value;
+                           // itemClass.itemEffect2Amount = getEffectAmount.value;
+                            var intEffect = parseInt(getEffectAmount);
+                            itemClass.itemEffect2Amount = intEffect;
+                            alert("Effect " + count + " added!");
+                            document.getElementById("ef2").value =  itemClass.itemEffect2;
+                            document.getElementById("am2").value =  itemClass.itemEffect2Amount;
+                            count++;
+                        }else
+                            alert("You can't have more than 2 item effects!");
+
+                }
+                function addTable(){
+                            console.log(itemClass.length);
+                    var k = document.getElementById("tableData");
+                    for(i = 0;i < itemClass.length; i++){
+                        var row = `
+                        <tr>
+                            <td>${itemClass.itemName}</td>
+                            <td>${itemClass.itemType}</td>
+                        </tr>
+                        `
+                        tableData.innerHTML += row;
+                    }
+   
+                }
+              
+        </script>
+
+</html>>
+
